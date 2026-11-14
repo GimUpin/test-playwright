@@ -1,64 +1,49 @@
 {
-  "name": "register-automation-test",
+  "name": "playwright-automation-framework",
   "version": "1.0.0",
-  "description": "Automation test project for registration flow using Puppeteer",
-  "main": "index.js",
+  "description": "Playwright TypeScript API Automation Framework focused on BankGW",
+  "private": true,
   "scripts": {
-    "test": "jest",
-    "test:dev": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:single": "jest --testNamePattern",
-    "test:custom": "jest tests/integration/customData.test.js",
-    "test:multistep": "jest tests/integration/multiStep.test.js",
-    "setup": "node scripts/setup.js",
-    "start": "node src/index.js",
-    "example:custom": "node examples/customRegistrationTest.js",
-    "example:simple": "node examples/simpleUsage.js",
-    "example:multistep": "node examples/multiStepRegistration.js",
-    "example:debug": "node examples/multiStepRegistration.js --step-by-step",
-    "example:auto": "node examples/multiStepRegistration.js --auto",
-    "example:real": "node examples/realSiteTest.js",
-    "example:debug-selectors": "node examples/realSiteTest.js --debug-selectors",
-    "example:manual-otp": "node examples/manualOtpTest.js",
-    "example:otp-step": "node examples/manualOtpTest.js --step-by-step",
-    "example:quick-otp": "node examples/manualOtpTest.js --quick",
-    "example:terminal-otp": "node examples/terminalOtpTest.js",
-    "example:terminal-otp-help": "node examples/terminalOtpTest.js --help"
-  },
-  "keywords": [
-    "automation",
-    "testing",
-    "puppeteer",
-    "registration",
-    "e2e"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "pg": "^8.11.3",
-    "redis": "^4.6.10",
-    "dotenv": "^16.3.1",
-    "winston": "^3.11.0",
-    "moment": "^2.29.4"
-  },
-  "devDependencies": {
-    "jest": "^26.6.3",
-    "puppeteer": "^10.4.0",
-    "eslint": "^7.32.0",
-    "prettier": "^2.8.8"
+    "test": "playwright test",
+    "test:api": "playwright test --project=api",
+    "test:api:dev": "cross-env ENV=dev playwright test --project=api",
+    "test:api:uat": "cross-env ENV=uat playwright test --project=api",
+    "test:api:bankgw": "playwright test --project=api tests/api/bankgw",
+    "test:api:bankgw:live": "cross-env RUN_BANKGW_API_TESTS=true playwright test --project=api tests/api/bankgw",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:report": "playwright show-report",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare:env": "node scripts/prepare-env.mjs"
   },
   "engines": {
-    "node": ">=12.0.0",
-    "npm": ">=6.0.0"
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
   },
-  "jest": {
-    "testMatch": [
-      "**/tests/**/*.test.js"
-    ],
-    "setupFilesAfterEnv": [
-      "./tests/setup/jest.setup.js"
-    ],
-    "testTimeout": 30000,
-    "testEnvironment": "node"
+  "keywords": [
+    "playwright",
+    "typescript",
+    "automation",
+    "api-testing",
+    "bankgw"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@playwright/test": "^1.51.0",
+    "@types/node": "^22.13.10",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.1",
+    "zod": "^3.24.2"
   }
 }
